@@ -44,6 +44,7 @@ The crossover fires on the bar where both regimes first agree on a new direction
 
 An adaptive trailing stop combining volatility (ATR), momentum (MFI), and a ratchet mechanism.
 
+
 **Volatility:**
 
 $$TR_t = \max(H_t - L_t, \; |H_t - C_{t-1}|, \; |L_t - C_{t-1}|)$$
@@ -189,4 +190,5 @@ Both raw and corrected p-values reported. Only BH-corrected results claimed.
 - Benjamini, Y. & Hochberg, Y. (1995). Controlling the false discovery rate.
 - Fisher, R.A. (1935). The Design of Experiments.
 - KivancOzbilgic. AlphaTrend. MPL 2.0. https://www.tradingview.com/script/o50NYLAZ-AlphaTrend/
+
 
