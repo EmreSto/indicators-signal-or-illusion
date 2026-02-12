@@ -52,7 +52,6 @@ The bands may visually cross without triggering this if the hlv values did not a
 
 An adaptive trailing stop combining volatility (ATR), momentum (MFI), and a ratchet mechanism.
 
-
 **Volatility:**
 
 $$TR_t = \max(H_t - L_t, \; |H_t - C_{t-1}|, \; |L_t - C_{t-1}|)$$
@@ -79,11 +78,7 @@ $$AT(t) = \begin{cases} \max(upT_t, \; AT(t-1)) & \text{if bullish}(t) \\ \min(d
 
 The ratchet only allows movement in the trend direction. This creates the staircase shape. Flat sections mean the new level was not enough to move the line.
 
-**Signal:**
-
-$$\text{signal}(t) = \begin{cases} +1 & \text{if } AT(t) > AT(t-2) \text{ and } AT(t-1) \leq AT(t-3) \\ -1 & \text{if } AT(t) < AT(t-2) \text{ and } AT(t-1) \geq AT(t-3) \\ 0 & \text{otherwise} \end{cases}$$
-
-Buy when AlphaTrend crosses above its 2-bar lagged version. Sell when it crosses below.
+For H3, we check whether the staircase is stepping up, down, or flat at the time of a crossover. We do not use AlphaTrend's own buy/sell signals.
 
 ### EMA 200
 
@@ -166,7 +161,7 @@ Reading results:
 
 ### H3: Permutation Test
 
-1. Find all crossovers. Label as confirmed or unconfirmed by AlphaTrend.
+1. Find all crossovers (both SSLs agree). Label as confirmed or unconfirmed by AlphaTrend.
 2. Measure directional return at 5, 10, 20 bars forward. Positive = crossover was right.
 3. Compute delta = mean(confirmed) - mean(unconfirmed).
 4. Shuffle labels 10,000 times. Compute delta each time.
