@@ -36,10 +36,17 @@ When the regime flips, the lines swap. This creates the visible crossover on the
 
 **Crossover (both channels agree):**
 
-$$\text{crossover}(t) = \begin{cases} +1 & \text{if } hlv_{60}(t) = +1 \text{ and } hlv_{120}(t) = +1 \text{ and they were not both } +1 \text{ at } t-1 \\ -1 & \text{if } hlv_{60}(t) = -1 \text{ and } hlv_{120}(t) = -1 \text{ and they were not both } -1 \text{ at } t-1 \\ 0 & \text{otherwise} \end{cases}$$
+A crossover fires when both regimes first agree on a new direction.
 
+Bullish crossover at bar $t$:
 
-The crossover fires on the bar where both regimes first agree on a new direction. The bands may visually cross without triggering this if the hlv values did not actually change.
+$$hlv_{60}(t) = +1 \quad \text{and} \quad hlv_{120}(t) = +1 \quad \text{and not both } +1 \text{ at } t-1$$
+
+Bearish crossover at bar $t$:
+
+$$hlv_{60}(t) = -1 \quad \text{and} \quad hlv_{120}(t) = -1 \quad \text{and not both } -1 \text{ at } t-1$$
+
+The bands may visually cross without triggering this if the hlv values did not actually change.
 
 ### AlphaTrend
 
@@ -191,6 +198,7 @@ Both raw and corrected p-values reported. Only BH-corrected results claimed.
 - Benjamini, Y. & Hochberg, Y. (1995). Controlling the false discovery rate.
 - Fisher, R.A. (1935). The Design of Experiments.
 - KivancOzbilgic. AlphaTrend. MPL 2.0. https://www.tradingview.com/script/o50NYLAZ-AlphaTrend/
+
 
 
 
