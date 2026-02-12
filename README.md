@@ -1,4 +1,3 @@
-```
 # indicators-signal-or-illusion
 
 **Do trading indicators show real market patterns, or do they just make noise look like patterns?**
@@ -37,4 +36,3 @@ Based on Lopez de Prado, Advances in Financial Machine Learning (2018). Syntheti
 ## Results
 
 TODO
-```
