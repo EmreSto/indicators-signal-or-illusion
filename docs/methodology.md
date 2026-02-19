@@ -12,23 +12,29 @@ Indicators are built from price. When price "bounces" off an indicator line, par
 
 ### SSL Channel
 
-Two simple moving averages form a band around price. A regime variable tracks which side of the band price is on.
+Two hull moving averages form a band around price. A regime variable tracks which side of the band price is on.
 
-**Moving averages:**
+**Weighted Moving Average:**
 
-$$SMA_H(t) = \frac{1}{N}\sum_{i=0}^{N-1} H_{t-i} \qquad SMA_L(t) = \frac{1}{N}\sum_{i=0}^{N-1} L_{t-i}$$
+$$WMA(t) = \frac{\sum_{i=1}^{N} i \cdot X_{t-N+i}}{\sum_{i=1}^{N} i}$$
+
+**Hull Moving Average:**
+
+$$HMA(t) = WMA\left(2 \cdot WMA(X, \lfloor N/2 \rfloor) - WMA(X, N), \; \lfloor\sqrt{N}\rfloor\right)$$
+
+HMA nearly eliminates lag while staying smooth. The $2 \cdot WMA(\text{half}) - WMA(\text{full})$ overshoots intentionally to compensate for lag. The final $WMA(\sqrt{N})$ smooths the result.
 
 **Regime variable:**
 
-$$hlv(t) = \begin{cases} +1 & \text{if } C_t > SMA_H(t) \\ -1 & \text{if } C_t < SMA_L(t) \\ hlv(t-1) & \text{otherwise} \end{cases}$$
+$$hlv(t) = \begin{cases} +1 & \text{if } C_t > HMA_H(t) \\ -1 & \text{if } C_t < HMA_L(t) \\ hlv(t-1) & \text{otherwise} \end{cases}$$
 
 The regime is sticky. It only flips when price closes beyond a boundary. Inside the channel, the previous state holds.
 
 **Line swap:**
 
-$$\text{If } hlv(t) = +1: \quad \text{upper} = SMA_H(t), \quad \text{lower} = SMA_L(t)$$
+$$\text{If } hlv(t) = +1: \quad \text{upper} = HMA_H(t), \quad \text{lower} = HMA_L(t)$$
 
-$$\text{If } hlv(t) = -1: \quad \text{upper} = SMA_L(t), \quad \text{lower} = SMA_H(t)$$
+$$\text{If } hlv(t) = -1: \quad \text{upper} = HMA_L(t), \quad \text{lower} = HMA_H(t)$$
 
 When the regime flips, the lines swap. This creates the visible crossover on the chart.
 
@@ -88,9 +94,9 @@ With $N = 200$, $\lambda \approx 0.01$. Moves slowly. Acts as a long-term trend 
 
 **Cloud:**
 
-$$\text{cloud upper} = EMA(t) \cdot (1 + w) \qquad \text{cloud lower} = EMA(t) \cdot (1 - w)$$
+$$\text{cloud upper} = EMA_H(t) \qquad \text{cloud lower} = EMA_C(t)$$
 
-$w = 0.002$. A thin band around the EMA.
+$EMA_H$ is EMA of highs, $EMA_C$ is EMA of close. The cloud width adapts naturally to volatility rather than using a fixed percentage.
 
 ## How The System Works Together
 
@@ -193,7 +199,3 @@ Both raw and corrected p-values reported. Only BH-corrected results claimed.
 - Benjamini, Y. & Hochberg, Y. (1995). Controlling the false discovery rate.
 - Fisher, R.A. (1935). The Design of Experiments.
 - KivancOzbilgic. AlphaTrend. MPL 2.0. https://www.tradingview.com/script/o50NYLAZ-AlphaTrend/
-
-
-
-
