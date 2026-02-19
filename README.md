@@ -22,10 +22,10 @@ All p-values go through Benjamini-Hochberg correction to account for running ~60
 ## Data
 
 | Asset | Instrument | Source | Period |
-|-------|-----------|--------|--------|
-| BTC/USDT | Binance Perpetual Futures | Databento | Jan 2023 to Feb 2025 |
-| ETH/USDT | Binance Perpetual Futures | Databento | Jan 2023 to Feb 2025 |
-| EUR/USD | CME 6E Futures | Databento | Jan 2023 to Feb 2025 |
+|-------|-----------|---------|--------|
+| BTC/USDT |CME Globex        | Databento | Jan 2023 to Feb 2025 |
+| ETH/USDT | CME Globex       | Databento | Jan 2023 to Feb 2025 |
+| EUR/USD | CME 6E Futures    | Databento | Jan 2023 to Feb 2025 |
 
 All futures. All real exchange volume. Single data provider. Timeframes: 15m, 30m, 1h, 2h, 4h
 
