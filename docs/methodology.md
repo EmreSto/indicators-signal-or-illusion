@@ -132,9 +132,9 @@ Confirmed = both SSLs agree + AlphaTrend steps in the same direction. Unconfirme
 
 | Asset    | Instrument             | Source    | Period              |
 |----------|------------------------|-----------|---------------------|
-| BTC/USDT | Binance Perp Futures  | Databento | Jan 2023 to Feb 2025 |
-| ETH/USDT | Binance Perp Futures  | Databento | Jan 2023 to Feb 2025 |
-| EUR/USD  | CME 6E Futures        | Databento | Jan 2023 to Feb 2025 |
+| BTC/USDT | CME Globex             | Databento | Jan 2023 to Feb 2025 |
+| ETH/USDT | CME Globex             | Databento | Jan 2023 to Feb 2025 |
+| EUR/USD  | CME 6E Futures         | Databento | Jan 2023 to Feb 2025 |
 
 All futures. All real exchange volume. Single data provider.
 
