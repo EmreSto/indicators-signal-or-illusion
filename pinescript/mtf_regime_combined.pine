@@ -1,0 +1,78 @@
+//@version=6
+indicator("MTF Regime System", overlay=true)
+
+ssl_short_len = input.int(60, "SSL Short Length")
+ssl_long_len  = input.int(120, "SSL Long Length")
+at_alpha      = input.float(1.0, "AlphaTrend Multiplier")
+at_length     = input.int(14, "AlphaTrend Period")
+
+// === HMA FUNCTION ===
+hma(src, len) =>
+    ta.wma(2 * ta.wma(src, len/2) - ta.wma(src, len), math.round(math.sqrt(len)))
+
+// === SSL CHANNEL (short) ===
+hma_high_s = hma(high, ssl_short_len)
+hma_low_s  = hma(low, ssl_short_len)
+var float hlv_s = 0.0
+if close > hma_high_s
+    hlv_s := 1.0
+else if close < hma_low_s
+    hlv_s := -1.0
+ssl_up_s   = hlv_s == 1 ? hma_high_s : hma_low_s
+ssl_down_s = hlv_s == 1 ? hma_low_s  : hma_high_s
+
+// === SSL CHANNEL (long) ===
+hma_high_l = hma(high, ssl_long_len)
+hma_low_l  = hma(low, ssl_long_len)
+var float hlv_l = 0.0
+if close > hma_high_l
+    hlv_l := 1.0
+else if close < hma_low_l
+    hlv_l := -1.0
+ssl_up_l   = hlv_l == 1 ? hma_high_l : hma_low_l
+ssl_down_l = hlv_l == 1 ? hma_low_l  : hma_high_l
+
+// === CROSSOVER DETECTION ===
+bull_cross = hlv_s == 1 and hlv_l == 1 and not (hlv_s[1] == 1 and hlv_l[1] == 1)
+bear_cross = hlv_s == -1 and hlv_l == -1 and not (hlv_s[1] == -1 and hlv_l[1] == -1)
+
+// === ALPHATREND ===
+var float at = 0.0
+True_range = ta.tr(true)
+ATR = ta.sma(True_range, at_length)
+upT = low - at_alpha * ATR
+downT = high + at_alpha * ATR
+MFI = ta.mfi(hlc3, at_length)
+if MFI >= 50
+    at := math.max(upT, nz(at[1]))
+else
+    at := math.min(downT, nz(at[1]))
+at_lag2 = at[2]
+
+// === EMA 200 CLOUD (close + high) ===
+ema_close = ta.ema(close, 200)
+ema_high  = ta.ema(high, 200)
+
+// === PLOTTING — SSL (swapped lines) ===
+p_ssl_up_s = plot(ssl_up_s, "SSL Short Up", color=color.new(color.lime, 40))
+p_ssl_dn_s = plot(ssl_down_s, "SSL Short Down", color=color.new(color.red, 40))
+
+p_ssl_up_l = plot(ssl_up_l, "SSL Long Up", color=color.new(color.lime, 70))
+p_ssl_dn_l = plot(ssl_down_l, "SSL Long Down", color=color.new(color.red, 70))
+
+// === PLOTTING — AlphaTrend ===
+plot(at, "AlphaTrend", color=color.aqua, linewidth=2)
+plot(at_lag2, "AT Lag 2", color=color.red, linewidth=1)
+
+// === PLOTTING — EMA Cloud ===
+cloud_upper = plot(ema_high, "Ema200 High", color=color.green)
+cloud_lower = plot(ema_close, "Ema200 Close", color=color.green)
+fill(cloud_upper, cloud_lower, color=color.new(color.green, 85))
+
+// === PLOTTING — Crossover Signals ===
+plotshape(bull_cross, "Bullish Crossover", shape.labelup, location.belowbar, color.lime, size=size.normal, text="BULL")
+plotshape(bear_cross, "Bearish Crossover", shape.labeldown, location.abovebar, color.red, size=size.normal, text="BEAR")
+
+// === FILLS — Gray for tangled, directional otherwise ===
+fill(p_ssl_up_s, p_ssl_dn_s, color = hlv_s == 1 ? color.new(color.lime, 85) : color.new(color.red, 85))
+fill(p_ssl_up_l, p_ssl_dn_l, color = hlv_l == 1 ? color.new(color.lime, 85) : color.new(color.red, 85))
