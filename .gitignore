@@ -10,3 +10,6 @@ data/raw/*
 .venv/
 output/figures/*.png
 output/tables/*.csv
+data/*.csv
+data/*.json
+venv/
