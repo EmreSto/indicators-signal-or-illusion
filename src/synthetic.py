@@ -1,3 +1,6 @@
+import numpy as np
+import pandas as pd
+from arch import arch_model
 def generate_garch_series(prices, n_simulations):
     returns = np.diff(np.log(prices))*100
     model = arch_model(returns, p=1 , q=1)

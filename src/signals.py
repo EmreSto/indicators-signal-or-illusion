@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from indicators import ssl_channels, alpha_trend, EMA200
+from indicators import ssl_channels
 def crossoverdetection(df):
     ssl60, hma_high60, hma_low60 = ssl_channels(df,60)
     ssl120, hma_high120, hma_low120 = ssl_channels(df,120)  
