@@ -23,8 +23,8 @@ All p-values go through Benjamini-Hochberg correction across 114 tests.
 
 | Asset | Instrument | Source | Period |
 |-------|-----------|---------|--------|
-| BTC/USD | CME Globex BTC Futures | Databento | Jan 2023 – Jan 2026 |
-| EUR/USD | CME 6E Futures | Databento | Jan 2023 – Jan 2025 |
+| BTC/USD | CME Globex BTC Futures | Databento | Jan 2023 - Jan 2026 |
+| EUR/USD | CME 6E Futures | Databento | Jan 2023 - Jan 2025 |
 
 All futures. All real exchange volume. Single data provider. Timeframes: 15m, 30m, 1h, 2h, 4h.
 
@@ -51,21 +51,21 @@ Based on Lopez de Prado, *Advances in Financial Machine Learning* (2018). Synthe
 
 ## Project Structure
 
-- **src/** — Core modules
-  - `aggregation_data.py` — Data loading and OHLCV resampling
-  - `indicators.py` — HMA, SSL Channels, AlphaTrend, EMA 200
-  - `signals.py` — SSL crossover detection
-  - `synthetic.py` — GARCH(1,1) synthetic price generation
-  - `tests.py` — H1, H2, H3 test functions
-  - `corrections.py` — Benjamini-Hochberg correction
-- **notebooks/** — Analysis
-  - `00_validation.ipynb` — Function pipeline check
+- **src/** - Core modules
+  - `aggregation_data.py` - Data loading and OHLCV resampling
+  - `indicators.py` - HMA, SSL Channels, AlphaTrend, EMA 200
+  - `signals.py` - SSL crossover detection
+  - `synthetic.py` - GARCH(1,1) synthetic price generation
+  - `tests.py` - H1, H2, H3 test functions
+  - `corrections.py` - Benjamini-Hochberg correction
+- **notebooks/** - Analysis
+  - `00_validation.ipynb` - Function pipeline check
   - `01_h1_synthetic_null.ipynb`
   - `02_h2_ema_attraction.ipynb`
   - `03_h3_permutation.ipynb`
-  - `04_summary.ipynb` — BH correction and final results
-- **docs/** — `methodology.md`
-- **pinescript/** — `mtf_regime_combined.pine`
+  - `04_summary.ipynb` - BH correction and final results
+- **docs/** - `methodology.md`
+- **pinescript/** - `mtf_regime_combined.pine`
 
 ## References
 
