@@ -198,7 +198,7 @@ Both raw and corrected p-values reported. Only BH-corrected results claimed.
 ## Results
 
 ### H1: 0/54 significant
-SSL channel touches produce returns indistinguishable from GARCH synthetic data across all timeframes and both assets. P-values cluster around 0.5 — dead center of the null distribution.
+SSL channel touches produce returns indistinguishable from GARCH synthetic data across all timeframes and both assets. P-values cluster around 0.5, dead center of the null distribution.
 
 ### H2: 30/30 significant (all p < 0.0001)
 Dual regime crossovers reach EMA 200 at 65-79% vs 25-49% from both random bars (Control A) and momentum-matched bars (Control B). Average time to reach: 1.5-4.5 bars. Both z-test and Mann-Whitney U significant across all tests. Effect is consistent across all timeframes and both BTC and EUR/USD.
